@@ -21,47 +21,52 @@ def main( ):
 
     choice = -1
     while choice != 0:
+        try:
+            print( menu )
+            choice = cleanInput( "Choice:> " )
+            choice = int(choice)
 
-        print( menu )
-        choice = cleanInput( "Choice:> " )
+            # add default box
+            if choice == 1:
+                print( "TODO" )
 
-        # add default box
-        if choice == 1:
-            print( "TODO" )
+            # update one time
+            elif choice == 2:
+                print( "TODO" )
 
-        # update one time
-        elif choice == 2:
-            print( "TODO" )
+            # update X number of times
+            elif choice == 3:
+                print( "TODO" )
 
-        # update X number of times
-        elif choice == 3:
-            print( "TODO" )
+            # print out station details
+            elif choice == 4:
+                print( "TODO" )
 
-        # print out station details
-        elif choice == 4:
-            print( "TODO" )
+            # make a new box of any size
+            elif choice == 5:
+                print( "TODO" )
 
-        # make a new box of any size
-        elif choice == 5:
-            print( "TODO" )
+            # make new system
+            elif choice == 6:
+                print( "TODO" )
 
-        # make new system
-        elif choice == 6:
-            print( "TODO" )
+            # make new system
+            elif choice == 7:
+                print( "TODO" )
 
-        # make new system
-        elif choice == 7:
-            print( "TODO" )
+            # debug/check for D in SOLID in __str__
+            elif choice == -1:
+                print( "TODO" )
 
-        # debug/check for D in SOLID in __str__
-        elif choice == -1:
-            print( "TODO" )
-
-        elif choice == 0 or '0':
-            choice = 0
-        else:
-            print( "Input an option in the range 0-7" )
-
+            elif choice == 0:
+                choice = 0
+            else:
+                print( "Input an option in the range 0-7" )
+        except ValueError:
+            print("Please, input a positive integer")
+        except:
+            import traceback
+            print(traceback.format_exc())
 
 if __name__ == '__main__':
     main( )
