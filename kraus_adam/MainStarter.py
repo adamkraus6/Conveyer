@@ -1,3 +1,7 @@
+from Box import Box
+from Belt import Belt
+from Station import Station
+from Conveyer import Conveyer
 
 def cleanInput(prompt):
     result = input(prompt)
@@ -18,6 +22,8 @@ def main( ):
            "7) Make New Conveyer Belt\n" \
            "0) Quit\n"
 
+    system = Conveyer()
+    print(system)
 
     choice = -1
     while choice != 0:
@@ -28,15 +34,28 @@ def main( ):
 
             # add default box
             if choice == 1:
-                print( "TODO" )
+                system.addBox(Box())
+                print(system)
 
             # update one time
             elif choice == 2:
-                print( "TODO" )
+                box = None
+                for section in system:
+                    oldBox = section.moveBox(box)
+                    box = oldBox
+                print(system)
 
             # update X number of times
             elif choice == 3:
-                print( "TODO" )
+                x = int(cleanInput("How many updates:> "))
+                if(x <= 0):
+                    raise ValueError
+                for i in range(x):
+                    box = None
+                    for section in system:
+                        oldBox = section.moveBox(box)
+                        box = oldBox
+                    print(system)
 
             # print out station details
             elif choice == 4:
@@ -44,7 +63,9 @@ def main( ):
 
             # make a new box of any size
             elif choice == 5:
-                print( "TODO" )
+                max = int(cleanInput("How many units:> "))
+                system.addBox(Box(max))
+                print(system)
 
             # make new system
             elif choice == 6:
@@ -56,7 +77,20 @@ def main( ):
 
             # debug/check for D in SOLID in __str__
             elif choice == -1:
-                print( "TODO" )
+                box1 = Box()
+                box2 = Box()
+                box3 = Box()
+                belt = Belt()
+                belt.addBox(box1)
+                station = Station()
+                station.addBox(box2)
+                system.addBox(box3)
+
+                print(box1)
+                print(box2)
+                print(belt)
+                print(station)
+                print(system)
 
             elif choice == 0:
                 choice = 0
