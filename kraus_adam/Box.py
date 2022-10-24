@@ -13,8 +13,14 @@ class Box:
     def getID(self):
         return self.id
 
+    def getUnits(self):
+        return self.units
+
     def getMaxUnits(self):
         return self.maxUnits
+
+    def isFull(self):
+        return self.units == self.maxUnits;
     
     def __str__(self):
         return str(self.id).ljust(4) + "\n" + str(self.units).ljust(4)

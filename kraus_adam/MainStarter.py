@@ -34,11 +34,11 @@ Second+ box ignored								DONE
 Bad input handled								DONE
 
 7. Tester Conveyer part 1	
-Initial system and station details correct 		___
-A single box still able to be added				___
-Update with one default box works				___
-Loading works 									___
-Formatting correct 								___
+Initial system and station details correct 	    DONE
+A single box still able to be added				DONE
+Update with one default box works				DONE
+Loading works 									DONE
+Formatting correct 								DONE
 
 8. Tester Conveyer part 2	
 Packaging works 								___
@@ -62,6 +62,8 @@ from Station import Station
 from Conveyer import Conveyer
 from Behaviors.BasicLoad import BasicLoad
 from Behaviors.PercentLoad import PercentLoad
+from Behaviors.BasicPack import BasicPack
+from Behaviors.RestrictedPack import RestrictedPack
 
 def cleanInput(prompt):
     result = input(prompt)
@@ -121,7 +123,7 @@ def main( ):
                 for station in system.stations():
                     output = "Station " + str(station_num) + \
                         "\nHas box: " + str(station.hasBox()) + \
-                        "\n" + station.getPackInfo() + "\n"
+                        "\n" + str(station.getPackInfo()) + "\n"
                     print(output)
                     station_num += 1
 
@@ -141,25 +143,28 @@ def main( ):
                 system.addSection(station1)
                 system.addSection(Belt())
                 system.addSection(Belt())
-                station2 = Station(BasicLoad(2)) # TODO: basic pack (2)
+                station2 = Station(BasicLoad(2), BasicPack(2))
                 system.addSection(station2)
                 system.addSection(Belt())
                 system.addSection(Belt())
-                station3 = Station(PercentLoad(50)) # TODO: restricted pack (3 and 0-1000)
-                system.addSection(station2)
+                station3 = Station(PercentLoad(50), RestrictedPack(3, 0, 1000))
+                system.addSection(station3)
 
                 print(system)
+
             # make new system
             elif choice == 7:
                 system.clear()
                 while True:
                     try:
                         selection = int(cleanInput("Belt (1) or Station (2):> "))
-                        if selection not in range(1,3):
-                            raise Exception
                         if selection == 1:
-                            system.addSection(Belt())
-                        else:
+                            length = int(cleanInput("Length:> "))
+                            if(length <= 0):
+                                raise Exception
+                            for i in range(length):
+                                system.addSection(Belt())
+                        elif selection == 2:
                             loadBehavior = None
                             packBehavior = None
 
@@ -186,7 +191,7 @@ def main( ):
                                 numBox = int(cleanInput("Number of boxes per package:> "))
                                 if numBox <= 0:
                                     raise Exception
-                                # TODO: set basic pack
+                                packBehavior = BasicPack(numBox);
                             elif packOption == 3: # restricted pack
                                 numBox = int(cleanInput("Number of boxes per package:> "))
                                 if numBox <= 0:
@@ -197,19 +202,20 @@ def main( ):
                                 maxUnits = int(cleanInput("Maximum units:> "))
                                 if maxUnits < minUnits:
                                     raise Exception
-                                unitRange = range(minUnits, maxUnits+1)
-                                print(unitRange)
-                                # TODO: set restricted pack
+                                packBehavior = RestrictedPack(numBox, minUnits, maxUnits);
 
                             station = Station(loadBehavior, packBehavior)
                             system.addSection(station)
-
+                        else:
+                            print("Input an option in the range 1-2")
                     except:
                         print("Cannot accept value")
                     another = cleanInput("Add another component (n to stop):> ")
+                    # TODO: check that is 'y'
                     if(another == "n"):
                         break;
                 print(system)
+
             # debug/check for D in SOLID in __str__
             elif choice == -1:
                 box1 = Box()
