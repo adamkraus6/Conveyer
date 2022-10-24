@@ -4,7 +4,7 @@ from Station import Station
 
 class Conveyer:
     def __init__(self):
-        self.sections = [Belt(), Belt(), Station(), Belt(), Belt(), Station()]
+        self.sections = [Belt(), Belt(), Station(), Belt(), Belt(), Station()] # TODO: private
     
     def addSection(self, section):
         self.sections.append(section)
@@ -13,6 +13,7 @@ class Conveyer:
         if(len(self.sections) > 0):
             self.sections[0].addBox(box)
 
+    # GRADING: ITER_ALL
     def __iter__(self):
         self.index = -1
         return self
@@ -22,6 +23,14 @@ class Conveyer:
         if(self.index < len(self.sections)):
             return self.sections[self.index]
         raise StopIteration
+    
+    def stations(self):
+        for section in self:
+            if(type(section) == Station):
+                yield section
+    
+    def clear(self):
+        self.sections = []
 
     def __str__(self):
         str1, str2, str3 = "", "", ""

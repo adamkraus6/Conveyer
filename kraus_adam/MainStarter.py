@@ -1,7 +1,67 @@
+"""
+Grading tags in for all lines marked with *		___
+
+Tierless str meets D in SOLID (hidden test)*	___
+Check if done, but not all tiers are passing	___
+
+1. Initial Show system\Got it compiling	
+Menu\initial system working						DONE
+Bad input handled								DONE
+
+2. Add Default Box	
+Added and shown properly						DONE
+Second+ box ignored								DONE
+
+3. Basic Update 
+Moves along belts								DONE
+Moves to next station\belt						DONE
+Drops off the end when reached					DONE
+String format correct							DONE
+Iterator used*									DONE
+
+4. Multi Update 	
+Updates correct amount							DONE
+Bad input handled								DONE
+String format correct							DONE
+
+5. Show station details (default)			
+Shows stations details properly 				DONE
+Iterator used*									DONE
+				
+6. Add box	
+Added and shown properly						DONE
+Second+ box ignored								DONE
+Bad input handled								DONE
+
+7. Tester Conveyer part 1	
+Initial system and station details correct 		___
+A single box still able to be added				___
+Update with one default box works				___
+Loading works 									___
+Formatting correct 								___
+
+8. Tester Conveyer part 2	
+Packaging works 								___
+Formatting correct 								___
+Strategy pattern for loading*					___
+Strategy pattern for packaging*					___
+
+
+9. Custom belt **
+String formatting correct						___
+Everything still works 							___
+Bad input handled 								___
+
+
+** This tier has 3 tests associated with it. 9A tests all belt/station orderings. 9B tests all combinations of packaging and fill. 9C tests error checking.
+"""
+
 from Box import Box
 from Belt import Belt
 from Station import Station
 from Conveyer import Conveyer
+from Behaviors.BasicLoad import BasicLoad
+from Behaviors.PercentLoad import PercentLoad
 
 def cleanInput(prompt):
     result = input(prompt)
@@ -29,8 +89,7 @@ def main( ):
     while choice != 0:
         try:
             print( menu )
-            choice = cleanInput( "Choice:> " )
-            choice = int(choice)
+            choice = int(cleanInput( "Choice:> " ))
 
             # add default box
             if choice == 1:
@@ -40,9 +99,9 @@ def main( ):
             # update one time
             elif choice == 2:
                 box = None
+                # GRADING: LOOP_ALL
                 for section in system:
-                    oldBox = section.moveBox(box)
-                    box = oldBox
+                    box = section.moveBox(box)
                 print(system)
 
             # update X number of times
@@ -53,28 +112,104 @@ def main( ):
                 for i in range(x):
                     box = None
                     for section in system:
-                        oldBox = section.moveBox(box)
-                        box = oldBox
+                        box = section.moveBox(box)
                     print(system)
 
             # print out station details
             elif choice == 4:
-                print( "TODO" )
+                station_num = 1
+                for station in system.stations():
+                    output = "Station " + str(station_num) + \
+                        "\nHas box: " + str(station.hasBox()) + \
+                        "\n" + station.getPackInfo() + "\n"
+                    print(output)
+                    station_num += 1
 
             # make a new box of any size
             elif choice == 5:
                 max = int(cleanInput("How many units:> "))
+                if(max <= 0):
+                    raise ValueError
                 system.addBox(Box(max))
                 print(system)
 
             # make new system
             elif choice == 6:
-                print( "TODO" )
+                system.clear()
+                system.addSection(Belt())
+                station1 = Station()
+                system.addSection(station1)
+                system.addSection(Belt())
+                system.addSection(Belt())
+                station2 = Station(BasicLoad(2)) # TODO: basic pack (2)
+                system.addSection(station2)
+                system.addSection(Belt())
+                system.addSection(Belt())
+                station3 = Station(PercentLoad(50)) # TODO: restricted pack (3 and 0-1000)
+                system.addSection(station2)
 
+                print(system)
             # make new system
             elif choice == 7:
-                print( "TODO" )
+                system.clear()
+                while True:
+                    try:
+                        selection = int(cleanInput("Belt (1) or Station (2):> "))
+                        if selection not in range(1,3):
+                            raise Exception
+                        if selection == 1:
+                            system.addSection(Belt())
+                        else:
+                            loadBehavior = None
+                            packBehavior = None
 
+                            loadOption = int(cleanInput("Load behavior: None (1), Basic (2), or Percentage (3):> "))
+                            if loadOption not in range(1,4):
+                                raise Exception
+                            
+                            if loadOption == 2: # basic load
+                                numUnits = int(cleanInput("Number of units:> "))
+                                if numUnits <= 0:
+                                    raise Exception
+                                loadBehavior = BasicLoad(numUnits);
+                            elif loadOption == 3: # percent load
+                                percentage = int(cleanInput("Percentage of box:> "))
+                                if percentage <= 0 or percentage > 100:
+                                    raise Exception
+                                loadBehavior = PercentLoad(percentage)
+                            
+                            packOption = int(cleanInput("Packaging behavior: None (1), Basic (2), or Restricted (3):> "))
+                            if packOption not in range(1,4):
+                                raise Exception
+                            
+                            if packOption == 2: # basic pack
+                                numBox = int(cleanInput("Number of boxes per package:> "))
+                                if numBox <= 0:
+                                    raise Exception
+                                # TODO: set basic pack
+                            elif packOption == 3: # restricted pack
+                                numBox = int(cleanInput("Number of boxes per package:> "))
+                                if numBox <= 0:
+                                    raise Exception
+                                minUnits = int(cleanInput("Minimum units:> "))
+                                if minUnits < 0:
+                                    raise Exception
+                                maxUnits = int(cleanInput("Maximum units:> "))
+                                if maxUnits < minUnits:
+                                    raise Exception
+                                unitRange = range(minUnits, maxUnits+1)
+                                print(unitRange)
+                                # TODO: set restricted pack
+
+                            station = Station(loadBehavior, packBehavior)
+                            system.addSection(station)
+
+                    except:
+                        print("Cannot accept value")
+                    another = cleanInput("Add another component (n to stop):> ")
+                    if(another == "n"):
+                        break;
+                print(system)
             # debug/check for D in SOLID in __str__
             elif choice == -1:
                 box1 = Box()

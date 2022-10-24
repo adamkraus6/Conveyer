@@ -1,6 +1,6 @@
 class Belt:
     def __init__(self):
-        self.Box = None
+        self.Box = None # TODO: private
 
     def moveBox(self, box):
         oldBox = self.Box
