@@ -1,8 +1,8 @@
 """
-Grading tags in for all lines marked with *		___
+Grading tags in for all lines marked with *		DONE
 
-Tierless str meets D in SOLID (hidden test)*	___
-Check if done, but not all tiers are passing	___
+Tierless str meets D in SOLID (hidden test)*	DONE MARKED
+Check if done, but not all tiers are passing	DONE
 
 1. Initial Show system\Got it compiling	
 Menu\initial system working						DONE
@@ -17,7 +17,7 @@ Moves along belts								DONE
 Moves to next station\belt						DONE
 Drops off the end when reached					DONE
 String format correct							DONE
-Iterator used*									DONE
+Iterator used*									DONE MARKED
 
 4. Multi Update 	
 Updates correct amount							DONE
@@ -41,29 +41,29 @@ Loading works 									DONE
 Formatting correct 								DONE
 
 8. Tester Conveyer part 2	
-Packaging works 								___
-Formatting correct 								___
-Strategy pattern for loading*					___
-Strategy pattern for packaging*					___
+Packaging works 							    DONE
+Formatting correct 								DONE
+Strategy pattern for loading*					DONE MARKED
+Strategy pattern for packaging*					DONE MARKED
 
 
 9. Custom belt **
-String formatting correct						___
-Everything still works 							___
-Bad input handled 								___
+String formatting correct						DONE
+Everything still works 							DONE
+Bad input handled 								DONE
 
 
 ** This tier has 3 tests associated with it. 9A tests all belt/station orderings. 9B tests all combinations of packaging and fill. 9C tests error checking.
 """
 
-from Box import Box
-from Belt import Belt
-from Station import Station
-from Conveyer import Conveyer
-from Behaviors.BasicLoad import BasicLoad
-from Behaviors.PercentLoad import PercentLoad
-from Behaviors.BasicPack import BasicPack
-from Behaviors.RestrictedPack import RestrictedPack
+from kraus_adam.Box import Box
+from kraus_adam.Belt import Belt
+from kraus_adam.Station import Station
+from kraus_adam.Conveyer import Conveyer
+from kraus_adam.Behaviors.BasicLoad import BasicLoad
+from kraus_adam.Behaviors.PercentLoad import PercentLoad
+from kraus_adam.Behaviors.BasicPack import BasicPack
+from kraus_adam.Behaviors.RestrictedPack import RestrictedPack
 
 def cleanInput(prompt):
     result = input(prompt)
@@ -211,7 +211,6 @@ def main( ):
                     except:
                         print("Cannot accept value")
                     another = cleanInput("Add another component (n to stop):> ")
-                    # TODO: check that is 'y'
                     if(another == "n"):
                         break;
                 print(system)
@@ -227,6 +226,7 @@ def main( ):
                 station.addBox(box2)
                 system.addBox(box3)
 
+                # GRADING: TO_STR
                 print(box1)
                 print(box2)
                 print(belt)

@@ -1,52 +1,52 @@
-from Box import Box
+from kraus_adam.Box import Box
 
 class Station:
     def __init__(self, loadBeh=None, packBeh=None):
-        self.loadBeh = loadBeh # TODO: private
-        self.packBeh = packBeh # TODO: private
-        self.Box = None # TODO: private
+        self.__loadBeh = loadBeh 
+        self.__packBeh = packBeh
+        self.__box = None
     
     def moveBox(self, box):
         self.pack()
-        oldBox = self.Box
-        self.Box = box
-        if(self.Box != None):
+        oldBox = self.__box
+        self.__box = box
+        if(self.__box != None):
             self.load()
         return oldBox
 
     def takeBox(self):
-        box = self.Box
-        self.Box = None
+        box = self.__box
+        self.__box = None
         return box
 
     def load(self):
-        if(self.loadBeh != None):
-            self.loadBeh.load(self)
+        if(self.__loadBeh != None):
+            self.__loadBeh.load(self)
     
     def pack(self):
-        if(self.packBeh != None):
-            self.packBeh.pack(self)
+        if(self.__packBeh != None):
+            self.__packBeh.pack(self)
 
     def getPackInfo(self):
-        if(self.packBeh == None):
+        if(self.__packBeh == None):
             return "Packaging: None"
         else:
-            return self.packBeh.packInfo();
+            return self.__packBeh.packInfo();
 
     def addBox(self, box):
-        if(self.Box == None):
-            self.Box = box
+        if(self.__box == None):
+            self.__box = box
     
     def getBox(self) -> Box:
-        return self.Box
+        return self.__box
     
     def hasBox(self):
-        if(self.Box == None):
+        if(self.__box == None):
             return False
         return True
 
     def __str__(self):
-        if(self.Box == None):
+        if(self.__box == None):
             return "    \n    \nXXXX"
         else:
-            return str(self.Box) + "\nXXXX"
+            return str(self.__box) + "\nXXXX"

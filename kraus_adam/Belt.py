@@ -1,18 +1,18 @@
 class Belt:
     def __init__(self):
-        self.Box = None # TODO: private
+        self.__box = None
 
     def moveBox(self, box):
-        oldBox = self.Box
-        self.Box = box
+        oldBox = self.__box
+        self.__box = box
         return oldBox
 
     def addBox(self, box):
-        if(self.Box == None):
-            self.Box = box
+        if(self.__box == None):
+            self.__box = box
     
     def __str__(self):
-        if(self.Box == None):
+        if(self.__box == None):
             return "    \n    \n----"
         else:
-            return str(self.Box) + "\n----"
+            return str(self.__box) + "\n----"

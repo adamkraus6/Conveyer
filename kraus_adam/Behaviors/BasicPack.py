@@ -1,13 +1,14 @@
+# GRADING: BASIC_PACKAGE
 class BasicPack:
     def __init__(self, fullBoxes):
-        self.fullBoxes = fullBoxes;
-        self.boxes = []
-        self.packaged = 0
+        self.__fullBoxes = fullBoxes;
+        self.__boxes = []
+        self.__packaged = 0
     
     def packInfo(self):
-        info = "Packages every " + str(self.fullBoxes) + " boxes\n" + \
-            "Currently has unpackaged box ids: " + str([box.getID() for box in self.boxes])[1:-1] + \
-            "\nPackages Complete: " + str(self.packaged)
+        info = "Packages every " + str(self.__fullBoxes) + " boxes\n" + \
+            "Currently has unpackaged box ids: " + str([box.getID() for box in self.__boxes])[1:-1] + \
+            "\nPackages Complete: " + str(self.__packaged)
         return info
     
     def pack(self, station):
@@ -15,7 +16,7 @@ class BasicPack:
         if(stationBox != None):
             if(stationBox.isFull()):
                 station.takeBox()
-                self.boxes.append(stationBox)
-                if(len(self.boxes) == self.fullBoxes):
-                    self.boxes.clear()
-                    self.packaged += 1
+                self.__boxes.append(stationBox)
+                if(len(self.__boxes) == self.__fullBoxes):
+                    self.__boxes.clear()
+                    self.__packaged += 1
