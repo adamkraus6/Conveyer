@@ -1,7 +1,12 @@
 """
+Conveyer Belt - Python
+Adam Kraus
+Programming Languages - CSC426
+Due: 11/3/2022
+
 Grading tags in for all lines marked with *		DONE
 
-Tierless str meets D in SOLID (hidden test)*	DONE MARKED
+Tierless str meets D in SOLID (hidden test)*	DONE (TAGGED)
 Check if done, but not all tiers are passing	DONE
 
 1. Initial Show system\Got it compiling	
@@ -17,7 +22,7 @@ Moves along belts								DONE
 Moves to next station\belt						DONE
 Drops off the end when reached					DONE
 String format correct							DONE
-Iterator used*									DONE MARKED
+Iterator used*									DONE (TAGGED)
 
 4. Multi Update 	
 Updates correct amount							DONE
@@ -43,8 +48,8 @@ Formatting correct 								DONE
 8. Tester Conveyer part 2	
 Packaging works 							    DONE
 Formatting correct 								DONE
-Strategy pattern for loading*					DONE MARKED
-Strategy pattern for packaging*					DONE MARKED
+Strategy pattern for loading*					DONE (TAGGED)
+Strategy pattern for packaging*					DONE (TAGGED)
 
 
 9. Custom belt **
@@ -244,4 +249,4 @@ def main( ):
             print(traceback.format_exc())
 
 if __name__ == '__main__':
-    main( )
+    main()
