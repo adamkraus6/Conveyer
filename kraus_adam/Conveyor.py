@@ -1,7 +1,10 @@
 from kraus_adam.Belt import Belt
 from kraus_adam.Station import Station
 
-class Conveyer:
+class Conveyor:
+    """
+    Station/Belt collection class
+    """
     def __init__(self):
         """
         Conveyer constructor
@@ -30,7 +33,7 @@ class Conveyer:
         """
         Setup for iterator
         :return: Self for iteration
-        :rtype: Box
+        :rtype: Conveyor
         """
         self.__index = -1
         return self
@@ -46,15 +49,44 @@ class Conveyer:
             return self.__sections[self.__index]
         raise StopIteration
     
-    def stations(self):
+    def getStationIter(self):
+        return self.StationIter(self.__sections)
+
+    class StationIter:
         """
-        Yields all stations in conveyer
-        :return: All stations
-        :rtype: Station[]
+        Iterations over just the stations in the conveyor
         """
-        for section in self:
-            if(type(section) == Station):
-                yield section
+        def __init__(self, sections):
+            """
+            Station iterator constructor
+            :param sections: Sections of the conveyor
+            :type sections: Section[]
+            """
+            self.__sections = sections
+        
+        # GRADING: ITER_STATION
+        def __iter__(self):
+            """
+            Setup for station iterator
+            :return: Self for iteration
+            :rtype: StationIter
+            """
+            self.__index = -1
+            return self
+
+        def __next__(self):
+            """
+            Gets next station in iteration
+            :return: Next Station
+            :rtype: Station
+            """
+            self.__index += 1
+            try:
+                while(type(self.__sections[self.__index]) == Belt):
+                    self.__index += 1
+                return self.__sections[self.__index]
+            except:
+                raise StopIteration
     
     def clear(self):
         """

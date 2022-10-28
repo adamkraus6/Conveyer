@@ -1,4 +1,7 @@
 class Box:
+    """
+    Box that holds units
+    """
     BOX_ID = 1
 
     def __init__(self, max=10):

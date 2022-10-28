@@ -1,5 +1,8 @@
 # GRADING: RESTRICTED_PACKAGE
 class RestrictedPack:
+    """
+    Restricted packaging behavior
+    """
     def __init__(self, waitBoxes, minUnits, maxUnits):
         """
         Basic Packaging constructor

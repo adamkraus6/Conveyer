@@ -1,4 +1,7 @@
 class Belt:
+    """
+    Belt portion of a conveyer
+    """
     def __init__(self):
         """
         Belt constructor

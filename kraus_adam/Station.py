@@ -1,6 +1,9 @@
 from kraus_adam.Box import Box
 
 class Station:
+    """
+    Station portion of conveyor
+    """
     def __init__(self, loadBeh=None, packBeh=None):
         """
         Station constructor

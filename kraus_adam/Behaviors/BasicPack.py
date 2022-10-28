@@ -1,5 +1,8 @@
 # GRADING: BASIC_PACKAGE
 class BasicPack:
+    """
+    Basic packaging behavior
+    """
     def __init__(self, waitBoxes):
         """
         Basic Packaging constructor

@@ -31,7 +31,7 @@ String format correct							DONE
 
 5. Show station details (default)			
 Shows stations details properly 				DONE
-Iterator used*									DONE
+Iterator used*									DONE (TAGGED)
 				
 6. Add box	
 Added and shown properly						DONE
@@ -64,7 +64,7 @@ Bad input handled 								DONE
 from kraus_adam.Box import Box
 from kraus_adam.Belt import Belt
 from kraus_adam.Station import Station
-from kraus_adam.Conveyer import Conveyer
+from kraus_adam.Conveyor import Conveyor
 from kraus_adam.Behaviors.BasicLoad import BasicLoad
 from kraus_adam.Behaviors.PercentLoad import PercentLoad
 from kraus_adam.Behaviors.BasicPack import BasicPack
@@ -89,7 +89,7 @@ def main( ):
            "7) Make New Conveyer Belt\n" \
            "0) Quit\n"
 
-    system = Conveyer()
+    system = Conveyor()
     print(system)
 
     choice = -1
@@ -125,7 +125,8 @@ def main( ):
             # print out station details
             elif choice == 4:
                 station_num = 1
-                for station in system.stations():
+                # GRADING: LOOP_STATION
+                for station in system.getStationIter():
                     output = "Station " + str(station_num) + \
                         "\nHas box: " + str(station.hasBox()) + \
                         "\n" + str(station.getPackInfo()) + "\n"

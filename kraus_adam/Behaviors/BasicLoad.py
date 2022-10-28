@@ -1,5 +1,8 @@
 # GRADING: BASIC_LOAD
 class BasicLoad:
+    """
+    Basic loading behavior
+    """
     def __init__(self, units):
         """
         Basic Loading constructor

@@ -1,5 +1,8 @@
 # GRADING: PERCENT_LOAD
 class PercentLoad:
+    """
+    Percentage loading behavior
+    """
     def __init__(self, percent):
         """
         Percent Loading constructor
